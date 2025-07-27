@@ -63,8 +63,8 @@ public class Task {
     @Convert(converter = JpaConverterJson.class)
     Map<String, String> labels;
 
-    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<CheckListItem> checkListItems; // Sửa tên cho nhất quán
+//    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
+//    List<CheckListItem> checkListItems; // Sửa tên cho nhất quán
 
     String listName;
 
