@@ -9,6 +9,7 @@ import phatdang.se.taskapi.enums.AccountStatus;
 import phatdang.se.taskapi.enums.Role;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -69,8 +70,11 @@ public class User {
 
     LocalDateTime lastActive;
 
-    @Convert(converter = JpaConverterJson.class)
-    Map<String, String> externalIds;
+//    @Convert(converter = JpaConverterJson.class)
+//    Map<String, String> externalIds;
+
+    @OneToMany(mappedBy = "assignee")
+    List<Task> tasks;
 
     // Hook để tự động cập nhật updatedAt
     @PreUpdate
