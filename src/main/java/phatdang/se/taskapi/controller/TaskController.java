@@ -36,7 +36,7 @@ public class TaskController {
         return ApiResponse.<CreationTaskResponse>builder()
                 .code(HttpCodes.OK.getCODE())
                 .message(HttpCodes.OK.getMESSAGE())
-                .data(TaskConverter.toCreationTaskResponse(taskService.saveTask(request)))
+                .data(taskService.saveTask(request))
                 .build();
     }
 }

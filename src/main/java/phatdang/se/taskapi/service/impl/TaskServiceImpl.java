@@ -6,12 +6,14 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 import phatdang.se.taskapi.converter.TaskConverter;
 import phatdang.se.taskapi.dto.request.CreationTaskRequest;
+import phatdang.se.taskapi.dto.response.CreationTaskResponse;
 import phatdang.se.taskapi.dto.response.TaskResponse;
 import phatdang.se.taskapi.entity.Task;
 import phatdang.se.taskapi.repository.ProjectRepository;
 import phatdang.se.taskapi.repository.TaskRepository;
 import phatdang.se.taskapi.repository.UserRepository;
 import phatdang.se.taskapi.service.TaskService;
+import phatdang.se.taskapi.utils.ConvertTime;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -28,18 +30,13 @@ public class TaskServiceImpl implements TaskService {
     UserRepository userRepository;
 
     @Override
-    public Task saveTask(CreationTaskRequest request) {
+    public CreationTaskResponse saveTask(CreationTaskRequest request) {
         Task task = new Task();
         task.setTaskName(request.getTaskName());
-
-        LocalDate date = LocalDate.parse(request.getCreatedAt(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        LocalDateTime createdAt = date.atStartOfDay(); // chuyển sang 00:00:00
-
-        task.setCreatedAt(createdAt);
         task.setProject(projectRepository.findById(request.getProjectId()).orElse(null));
         task.setAssignee(userRepository.findById(request.getUserId()).orElse(null));
 
-        return taskRepository.save(task);
+        return TaskConverter.toCreationTaskResponse(taskRepository.save(task));
     }
 
     @Override
