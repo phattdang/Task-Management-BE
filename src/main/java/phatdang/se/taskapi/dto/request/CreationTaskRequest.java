@@ -21,7 +21,6 @@ import java.time.LocalDateTime;
 
 public class CreationTaskRequest {
     String taskName;
-    String createdAt;
     String userId;
     Long projectId;
 }
